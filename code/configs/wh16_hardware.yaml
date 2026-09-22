@@ -1,0 +1,87 @@
+# WH16 hardware-analysis configuration.
+#
+# Main hardware grid theta={0000,0785}/mu={000,010}: the saved hardware
+# summary (data/reference_summaries/WH16_entropy_summary.json,
+# ``_meta.theta_values``) confirms exactly these 2 theta points are part of
+# the reported result; theta=0393 has staged QPY/raw-count folders on disk
+# but zero Data rows in the campaign's job records (see excluded_theta
+# below) and is deliberately not included. Boundary/bulk indices from
+# WH16-C-C005/WH16-C-C039: boundary_indices=[4,12,7,15],
+# bulk_indices=[1,9,5,13], both 4-qubit settings (81 each). Historical
+# filename quirk: bulk circuits are also named "..._bound_..." on disk
+# (WH16-C-C039); this is a semantic manifest field (measurement_role), never
+# a rename of the staged files.
+name: wh16_2026_03_19
+experiment: wh16
+version: wh16_2026_03_19
+mode: hardware
+
+theta_codes: ["0000", "0785"]
+theta_values: [0.0, 0.7853981633974483]
+magic_codes: ["000", "010"]
+magic_values: [0.0, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk_shared_filename_quirk
+  settings_per_condition: 162
+  boundary_settings: 81
+  bulk_settings: 81
+  boundary_qubits: [4, 12, 7, 15]
+  bulk_qubits: [1, 9, 5, 13]
+  separate_bulk_circuits: true
+
+n_qubits: 16
+logical_qubits: [0, 5, 8, 13]
+
+executed_circuit_root: executed_circuits/WH16
+raw_count_root: hardware_counts/WH16
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 162
+expected_shots_per_setting:
+  "000": 1000
+  "010": 1000
+noise_parameters:
+  shots_policy: >
+    Nominal ~1000 shots/setting; actual per-setting shots are preserved
+    exactly and reported as min/median/max rather than coerced or
+    subsampled to exactly 1000. One condition (theta=0785, mu=000, 162
+    settings) has some settings at 950 shots and the rest at 1000
+    (min=950, median=1000, max=1000); all other conditions are uniformly
+    1000 shots/setting. The exact per-setting shot count for every
+    condition is also visible directly in the generated hardware summary's
+    ``shots_used`` lists after running `code/run`.
+  optimized_encoding: >
+    magic=1.0 (mu_code "010") uses the optimized coherent over-rotation
+    vector x_best_010.npy applied to ALL Rx/Ry/Rz/XX gates in the encoding
+    circuit via add_coh_err_all_gates_cirq (N_RX=110, N_RY=110, N_RZ=22,
+    N_XX=36; see the 16-qubit wormhole construction notebook, cell 7, a
+    dependency of canonical cell WH16-C-C039) plus the pickled optimized
+    recovery circuit circ_opt_reco_opt_magic_params. magic=0.0 uses the
+    plain Clifford wormhole_reco recovery with no injected error.
+  excluded_theta:
+    theta_code: "0393"
+    reason: condition_not_in_final_hardware_summary
+    note: >
+      QPY/raw folders exist on disk for theta=0393, but the campaign's own
+      job-submission and job-status records contain zero Data rows
+      referencing it, so no hardware data actually exists for this theta;
+      it is deliberately excluded rather than included on the strength of
+      the staged circuit files alone.
+
+bootstrap_repeats: 1000
+bootstrap_seed: 12345
+
+simulation_runs: null
+simulation_seed: null
+simulation_shots: null
+optimizer_artifacts:
+  - optimized_artifacts/x_best_010.npy
+  - optimized_artifacts/circ_opt_reco_opt_magic_params
+  - optimized_artifacts/circ_opt_reco_rx000_ry005_rz005_xx015
+
+reference_summary: reference_summaries/WH16_entropy_summary.json
+reference_simulation: reference_simulations/WH16_constructed_coherr_000_000_randerr_000_125_5theta_mu000-010_optEnc_optReco_K50_shots1000_runs5_boot10_combined_typical_count.json
+
+quick_mode: false

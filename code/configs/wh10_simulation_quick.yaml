@@ -1,0 +1,60 @@
+# WH10 quick simulation configuration: proves the pipeline runs end-to-end.
+# Not a production reproduction; never overwrites production references.
+name: wh10_quick
+experiment: wh10
+version: wh10_quick
+mode: simulation_quick
+
+theta_codes: ["0000", "0785"]
+theta_values: [0.0, 0.7853981633974483]
+magic_codes: ["000", "027"]
+magic_values: [0.0, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk
+  settings_per_condition: 90
+  boundary_settings: 81
+  bulk_settings: 9
+  boundary_qubits: [3, 4, 8, 9]
+  bulk_qubits: [0, 5]
+  separate_bulk_circuits: true
+
+n_qubits: 10
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/WH10
+raw_count_root: hardware_counts/WH10
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 90
+expected_shots_per_setting:
+  "000": 50
+  "027": 50
+
+bootstrap_repeats: 10
+bootstrap_seed: 12345
+
+simulation_runs: 2
+simulation_seed: 24680
+simulation_shots: null
+optimizer_artifacts: []
+noise_parameters:
+  qst_trajectory_batch_K: 5
+  shots_qst_by_magic: {"0.0": 50, "1.0": 50}
+  error_rand_SQ: 0.02
+  error_rand_ZZ: 0.117
+  use_shared_coherent_errors: true
+  coherent_sigma_SQ: 0.0
+  coherent_sigma_ZZ: 0.0
+  COHERENT_RANDOM_SEED: 24680
+  FIT_RANDOM_SEED: 12345
+  use_qst_count_bootstrap: true
+  qst_count_bootstrap_repeats: 10
+  qst_count_bootstrap_seed: 12345
+  qst_uncertainty_mode: combined_typical_count
+
+reference_summary: reference_summaries/WH10_entropy_summary.json
+reference_simulation: null
+
+quick_mode: true

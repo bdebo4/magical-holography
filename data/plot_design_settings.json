@@ -1,0 +1,86 @@
+{
+  "colors": {
+    "magic_values": {
+      "0.0": {
+        "experiment": "#000000",
+        "simulation_mean": "#000000",
+        "simulation_fill": "#000000",
+        "simulation_mean_alpha": 0.4,
+        "simulation_fill_alpha": 0.3,
+        "magic_text": "m = 0"
+      },
+      "0.5": {
+        "experiment": "#46297f",
+        "simulation_mean": "#46297f",
+        "simulation_fill": "#46297f",
+        "simulation_mean_alpha": 0.4,
+        "simulation_fill_alpha": 0.3,
+        "magic_text": "m = 2.23"
+      },
+      "1.0": {
+        "experiment": "#8c52ff",
+        "simulation_mean": "#8c52ff",
+        "simulation_fill": "#8c52ff",
+        "simulation_mean_alpha": 0.4,
+        "simulation_fill_alpha": 0.3,
+        "magic_text": "m = 5.79"
+      }
+    }
+  },
+  "figure": {
+    "figsize_per_panel": [
+      5.0,
+      4.0
+    ],
+    "title_fontsize": 12,
+    "subtitle_fontsize": 11,
+    "label_fontsize": 12,
+    "tick_fontsize": 12,
+    "legend_fontsize": 12,
+    "use_grid": false,
+    "grid_alpha": 0.3,
+    "tight_layout_rect": [
+      0,
+      0,
+      1,
+      0.92
+    ]
+  },
+  "experiment_style": {
+    "marker": "o",
+    "markersize": 4.6,
+    "markerfacecolor": "match",
+    "markeredgecolor": "black",
+    "markeredgewidth": 1.1,
+    "elinewidth": 1.4,
+    "capsize": 0.0,
+    "capthick": 0.0,
+    "linewidth": 0.0,
+    "linestyle": "none",
+    "zorder": 4
+  },
+  "simulation_style": {
+    "mean_linewidth": 1.0,
+    "mean_linestyle": "-",
+    "fill_linewidth": 0.0,
+    "sv_linewidth": 1.0,
+    "sv_linestyle": "--",
+    "ideal_linewidth": 1.2,
+    "ideal_linestyle": "--"
+  },
+  "magic_text_style": {
+    "enabled": true,
+    "fontweight": "normal",
+    "x_fraction": 0.035,
+    "min_vertical_separation_fraction": 0.075,
+    "y_padding_fraction": 0.04
+  },
+  "legend_style": {
+    "enabled": true,
+    "frameon": false,
+    "location": "best",
+    "handlelength": 2.2,
+    "handletextpad": 0.7,
+    "borderaxespad": 0.4
+  }
+}

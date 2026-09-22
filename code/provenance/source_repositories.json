@@ -1,0 +1,26 @@
+{
+  "description": "Provenance record of the two private research repositories this capsule's circuit-construction and analysis code was refactored from, and of a credential file that was deliberately never staged. Neither source repository is included in or required by this capsule; every module under code/src/holographic_codes documents which source file(s) and notebook cell(s) it was derived from in its own docstring, and code/provenance/notebook_cells.csv records the specific notebook cells audited during migration.",
+  "repositories": [
+    {
+      "role": "construction_simulation",
+      "name": "happy_ions",
+      "description": "Circuit-construction notebooks (SC8, WH10, WH16) and the shared analysis_functions.py module.",
+      "source_commit": "8605fd938347d1023b978f002965e0dc53fb46ce",
+      "working_tree_dirty": false
+    },
+    {
+      "role": "execution_analysis",
+      "name": "holography-on-ionq",
+      "description": "Hardware job submission/execution records and data-analysis notebooks (SC8, WH10, WH16), under its 'Testing flow' subdirectory.",
+      "source_commit": "110b239da16234f42586f132d0b082d4dc161792",
+      "working_tree_dirty": false
+    }
+  ],
+  "credential_files_excluded": [
+    {
+      "description": "A configuration file in the execution/analysis source repository containing a live plaintext IonQ API key.",
+      "sha256": "c66bc6ea28bc1b237aaac5d14a8f7f160f9a99b63b1a5b46ee2bde1eb262142e",
+      "reason": "Never staged, never referenced by path, never copied into this capsule."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "description": "Full-batch regression comparison of every selected circuit (1,863 total: SC8+WH10+WH16) against its staged, previously-executed QPY file, at both a strict structural (gate-by-gate) tier and a measurement-probability-equivalence tier. See code/src/holographic_codes/circuits/comparison.py for the two tiers' definitions and code/tests/test_circuit_regression.py for the representative-sample regression test that runs by default under pytest.",
+  "per_experiment": {
+    "sc8": {
+      "n_circuits_checked": 405,
+      "n_pass": 405,
+      "n_fail": 0,
+      "n_structural_match": 270,
+      "n_measurement_equivalent": 405,
+      "wall_time_seconds": 4.9321558475494385,
+      "failures": []
+    },
+    "wh10": {
+      "n_circuits_checked": 810,
+      "n_pass": 810,
+      "n_fail": 0,
+      "n_structural_match": 0,
+      "n_measurement_equivalent": 810,
+      "wall_time_seconds": 9.780560970306396,
+      "failures": []
+    },
+    "wh16": {
+      "n_circuits_checked": 648,
+      "n_pass": 648,
+      "n_fail": 0,
+      "n_structural_match": 648,
+      "n_measurement_equivalent": 648,
+      "wall_time_seconds": 38.916565895080566,
+      "failures": []
+    }
+  },
+  "overall_fail_count": 0,
+  "overall_status": "pass"
+}

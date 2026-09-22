@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "holographic-codes"
+version = "0.1.0"
+description = "Offline reproducibility capsule for the SC8/WH10/WH16 holographic-codes hardware and simulation workflows."
+requires-python = ">=3.11"
+dependencies = [
+    "qiskit==2.2.3",
+    "qiskit-ionq==1.0.2",
+    "qiskit-aer>=0.17",
+    "cirq==1.6.1",
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "qutip>=5.0",
+    "pyyaml>=6.0",
+    "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

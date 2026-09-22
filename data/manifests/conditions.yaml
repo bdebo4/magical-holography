@@ -1,0 +1,171 @@
+SC8:
+  '0000_000':
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 27
+    theta_code: '0000'
+    theta_rad: '0'
+  '0000_010':
+    magic_value: 0.5
+    mu_code: '010'
+    n_selected_circuits: 27
+    theta_code: '0000'
+    theta_rad: '0'
+  '0000_020':
+    magic_value: 1.0
+    mu_code: '020'
+    n_selected_circuits: 27
+    theta_code: '0000'
+    theta_rad: '0'
+  0196_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 27
+    theta_code: 0196
+    theta_rad: '0.19634954084936207'
+  0196_010:
+    magic_value: 0.5
+    mu_code: '010'
+    n_selected_circuits: 27
+    theta_code: 0196
+    theta_rad: '0.19634954084936207'
+  0196_020:
+    magic_value: 1.0
+    mu_code: '020'
+    n_selected_circuits: 27
+    theta_code: 0196
+    theta_rad: '0.19634954084936207'
+  0393_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 27
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0393_010:
+    magic_value: 0.5
+    mu_code: '010'
+    n_selected_circuits: 27
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0393_020:
+    magic_value: 1.0
+    mu_code: '020'
+    n_selected_circuits: 27
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0589_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 27
+    theta_code: 0589
+    theta_rad: '0.58904862254808621'
+  0589_010:
+    magic_value: 0.5
+    mu_code: '010'
+    n_selected_circuits: 27
+    theta_code: 0589
+    theta_rad: '0.58904862254808621'
+  0589_020:
+    magic_value: 1.0
+    mu_code: '020'
+    n_selected_circuits: 27
+    theta_code: 0589
+    theta_rad: '0.58904862254808621'
+  0785_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 27
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+  0785_010:
+    magic_value: 0.5
+    mu_code: '010'
+    n_selected_circuits: 27
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+  0785_020:
+    magic_value: 1.0
+    mu_code: '020'
+    n_selected_circuits: 27
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+WH10:
+  '0000_000':
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 90
+    theta_code: '0000'
+    theta_rad: '0'
+  '0000_013':
+    magic_value: 0.5
+    mu_code: '013'
+    n_selected_circuits: 90
+    theta_code: '0000'
+    theta_rad: '0'
+  '0000_027':
+    magic_value: 1.0
+    mu_code: '027'
+    n_selected_circuits: 90
+    theta_code: '0000'
+    theta_rad: '0'
+  0393_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 90
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0393_013:
+    magic_value: 0.5
+    mu_code: '013'
+    n_selected_circuits: 90
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0393_027:
+    magic_value: 1.0
+    mu_code: '027'
+    n_selected_circuits: 90
+    theta_code: 0393
+    theta_rad: '0.39269908169872414'
+  0785_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 90
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+  0785_013:
+    magic_value: 0.5
+    mu_code: '013'
+    n_selected_circuits: 90
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+  0785_027:
+    magic_value: 1.0
+    mu_code: '027'
+    n_selected_circuits: 90
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+WH16:
+  '0000_000':
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 162
+    theta_code: '0000'
+    theta_rad: '0'
+  '0000_010':
+    magic_value: 1.0
+    mu_code: '010'
+    n_selected_circuits: 162
+    theta_code: '0000'
+    theta_rad: '0'
+  0785_000:
+    magic_value: 0.0
+    mu_code: '000'
+    n_selected_circuits: 162
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'
+  0785_010:
+    magic_value: 1.0
+    mu_code: '010'
+    n_selected_circuits: 162
+    theta_code: 0785
+    theta_rad: '0.78539816339744828'

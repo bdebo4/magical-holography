@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Default Code Ocean entry point.
+#
+# Requires no network access and no IonQ credentials: every step reads only
+# from the staged /data manifests/circuits/counts/reference files. Does NOT
+# run the expensive full simulations (use
+# `python -m holographic_codes.cli simulate --experiment <X> --mode full`
+# explicitly for that).
+#
+# Steps: validate staged inputs -> run all three hardware analyses -> load
+# and validate the saved production simulations -> generate final summaries
+# and figures -> write a machine-readable run report -> exit nonzero on any
+# required-check failure.
+set -uo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="${HERE}/src:${PYTHONPATH:-}"
+
+# Ask holographic_codes.paths.result_root() for the output directory rather
+# than hard-coding /results here: that is the single source of truth every
+# writer in the package uses (Code Ocean's /results if present, else
+# $HOLOGRAPHIC_CODES_RESULT_ROOT, else a local_results/ fallback for
+# development). Hard-coding /results in this script would silently fail
+# outside Code Ocean, where /results does not exist and is not creatable by
+# an unprivileged user, even though the Python side would correctly fall
+# back to local_results/ -- this keeps both sides in agreement.
+RESULT_ROOT="$(python3 -c 'from holographic_codes.paths import result_root; print(result_root())')"
+REPORT="${RESULT_ROOT}/run_report.json"
+
+STATUS=0
+STEPS_JSON="[]"
+
+run_step () {
+    local name="$1"; shift
+    echo "=== ${name} ==="
+    if "$@" ; then
+        local rc=0
+    else
+        local rc=$?
+        STATUS=1
+    fi
+    STEPS_JSON=$(python3 -c "
+import json, sys
+steps = json.loads('''${STEPS_JSON}''')
+steps.append({'step': '${name}', 'exit_code': ${rc}})
+print(json.dumps(steps))
+")
+}
+
+run_step "validate-inputs" python3 -m holographic_codes.cli validate-inputs
+run_step "validate-simulations" python3 -m holographic_codes.cli validate-simulations
+run_step "analyze-hardware-sc8" python3 -m holographic_codes.cli analyze-hardware --experiment sc8
+run_step "analyze-hardware-wh10" python3 -m holographic_codes.cli analyze-hardware --experiment wh10
+run_step "analyze-hardware-wh16" python3 -m holographic_codes.cli analyze-hardware --experiment wh16
+run_step "make-figures" python3 -m holographic_codes.cli make-figures
+
+python3 -c "
+import json
+with open('${REPORT}', 'w') as f:
+    json.dump({'steps': json.loads('''${STEPS_JSON}'''), 'overall_status': 'ok' if ${STATUS} == 0 else 'failed'}, f, indent=2)
+"
+
+echo "Run report written to ${REPORT}"
+exit ${STATUS}

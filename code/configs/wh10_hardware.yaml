@@ -1,0 +1,74 @@
+# WH10 hardware-analysis configuration.
+#
+# theta/magic grids and shots-per-setting are the final selected values (see
+# reference_summary below). Boundary/bulk qubit indices from WH10-C-C007
+# (construction) / WH10-D-C016 (canonical exporter): boundary_ind=[3,4,8,9]
+# (4-qubit, no recovery applied), bulk_indices=[0,5] (2-qubit, recovery
+# applied).
+name: wh10_final_selected
+experiment: wh10
+version: wh10_final_selected
+mode: hardware
+
+theta_codes: ["0000", "0393", "0785"]
+theta_values: [0.0, 0.39269908169872414, 0.7853981633974483]
+magic_codes: ["000", "013", "027"]
+magic_values: [0.0, 0.5, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk
+  settings_per_condition: 90
+  boundary_settings: 81
+  bulk_settings: 9
+  boundary_qubits: [3, 4, 8, 9]
+  bulk_qubits: [0, 5]
+  separate_bulk_circuits: true
+
+n_qubits: 10
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/WH10
+raw_count_root: hardware_counts/WH10
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 90
+expected_shots_per_setting:
+  "000": 1250
+  "013": 1500
+  "027": 1250
+
+bootstrap_repeats: 1000
+bootstrap_seed: 12345
+
+simulation_runs: null
+simulation_seed: null
+simulation_shots: null
+optimizer_artifacts: []
+noise_parameters:
+  error_syst_Rx_per_magic: 0.1
+  error_syst_Ry_per_magic: 0.2
+  error_syst_Rz_per_magic: 0.0
+  error_syst_ZZ_per_magic: 0.27
+  historical_excluded_groups:
+    - group: 12
+      theta_code: "0393"
+      mu_code: "027"
+      shots: 200
+    - group: 13
+      theta_code: "0393"
+      mu_code: "000"
+      shots: 200
+  exclusion_note: >
+    Groups 12/13 were resolved once, offline, to 90 explicit excluded
+    hardware job IDs each; the final selected manifest
+    (data/manifests/selected_hardware_jobs.csv) positively defines the
+    analyzed dataset and simply omits these two groups. Runtime analysis
+    never re-derives the exclusion from the historical chronological
+    group-index rule or from job ordering -- it only ever reads the
+    already-resolved selected manifest.
+
+reference_summary: reference_summaries/WH10_entropy_summary.json
+reference_simulation: reference_simulations/WH10_constructed_9theta_mu000-013-027_K200_shots000-1250_013-1500_027-1250_runs14_boot80_combined_typical_count.json
+
+quick_mode: false

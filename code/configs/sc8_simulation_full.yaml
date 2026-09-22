@@ -1,0 +1,64 @@
+# SC8 full production simulation configuration.
+#
+# Every numeric parameter here is copied verbatim from the "_meta" block of
+# the staged production simulation JSON
+# (data/reference_simulations/SC8_noisy_sims_theta9_qstRuns15_K200_shotsM0-2100_M0p5-1500_M1-1500_boot100_2026-06-16.json),
+# NOT re-derived from a filename, per 01_IMPLEMENTATION_SPEC.md section 3.
+name: sc8_full_2026_06_16
+experiment: sc8
+version: sc8_full_2026_06_16
+mode: simulation_full
+
+theta_codes: ["0000", "0098", "0196", "0295", "0393", "0491", "0589", "0687", "0785"]
+theta_values: [0.0, 0.09817477042468103, 0.19634954084936207, 0.2945243112740431, 0.39269908169872414, 0.4908738521234052, 0.5890486225480862, 0.6872233929727672, 0.7853981633974483]
+magic_codes: ["000", "010", "020"]
+magic_values: [0.0, 0.5, 1.0]
+
+measurement:
+  scheme: shared_post_recovery_equal_depth
+  settings_per_condition: 27
+  boundary_qubits: [0, 1, 2]
+  bulk_qubits: [0]
+  separate_bulk_circuits: false
+
+n_qubits: 8
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/SC8
+raw_count_root: hardware_counts/SC8
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 27
+expected_shots_per_setting:
+  "000": 2100
+  "010": 1500
+  "020": 1500
+
+bootstrap_repeats: 100
+bootstrap_seed: 12345
+
+simulation_runs: 15  # num_runs_qst
+simulation_seed: 12345  # qst_count_bootstrap_seed
+simulation_shots: null  # per-magic, see noise_parameters.shots_qst_by_magic
+optimizer_artifacts:
+  - optimized_artifacts/circ_optimized_reco_singlecopy_halfmagic.pkl
+  - optimized_artifacts/circ_optimized_reco_singlecopy_withmagic.pkl
+noise_parameters:
+  qst_trajectory_batch_K: 200
+  shots_qst_by_magic: {"0.0": 2100, "0.5": 1500, "1.0": 1500}
+  incl_rz_error: true
+  base_error_syst_Rx: 0.15
+  base_error_syst_Ry: 0.25
+  base_error_syst_Rz: 0.15
+  base_error_syst_ZZ: 0.20
+  error_rand_SQ: 0.02
+  error_rand_ZZ: 0.135
+  use_qst_count_bootstrap: true
+  qst_count_bootstrap_repeats: 100
+  qst_count_bootstrap_seed: 12345
+
+reference_summary: reference_summaries/SC8_entropy_summary.json
+reference_simulation: reference_simulations/SC8_noisy_sims_theta9_qstRuns15_K200_shotsM0-2100_M0p5-1500_M1-1500_boot100_2026-06-16.json
+
+quick_mode: false

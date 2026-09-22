@@ -1,0 +1,66 @@
+# WH16 quick simulation configuration: proves the pipeline runs end-to-end.
+# Not a production reproduction; never overwrites production references.
+name: wh16_quick
+experiment: wh16
+version: wh16_quick
+mode: simulation_quick
+
+theta_codes: ["0000", "0785"]
+theta_values: [0.0, 0.7853981633974483]
+magic_codes: ["000", "010"]
+magic_values: [0.0, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk_shared_filename_quirk
+  settings_per_condition: 162
+  boundary_settings: 81
+  bulk_settings: 81
+  boundary_qubits: [4, 12, 7, 15]
+  bulk_qubits: [1, 9, 5, 13]
+  separate_bulk_circuits: true
+
+n_qubits: 16
+logical_qubits: [0, 5, 8, 13]
+
+executed_circuit_root: executed_circuits/WH16
+raw_count_root: hardware_counts/WH16
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 162
+expected_shots_per_setting:
+  "000": 50
+  "010": 50
+
+bootstrap_repeats: 10
+bootstrap_seed: 12345
+
+simulation_runs: 1
+simulation_seed: 12345
+simulation_shots: 50
+optimizer_artifacts:
+  - optimized_artifacts/x_best_010.npy
+  - optimized_artifacts/circ_opt_reco_opt_magic_params
+noise_parameters:
+  qst_trajectory_batch_K: 2
+  use_optimized_encoding: true
+  optimized_encoding_file: optimized_artifacts/x_best_010.npy
+  use_optimized_recovery: true
+  optimized_recovery_file: optimized_artifacts/circ_opt_reco_opt_magic_params
+  boundary_blue1: [1, 2, 3]
+  boundary_blue2: [9, 10, 11]
+  boundary_red1: [5, 0, 6]
+  boundary_red2: [13, 8, 14]
+  N_RX: 110
+  N_RY: 110
+  N_RZ: 22
+  N_XX: 36
+  incl_rz_error: true
+  qst_uncertainty_mode: combined_typical_count
+  qst_count_bootstrap_repeats: 5
+  qst_count_bootstrap_seed: 12345
+
+reference_summary: reference_summaries/WH16_entropy_summary.json
+reference_simulation: null
+
+quick_mode: true

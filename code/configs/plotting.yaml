@@ -1,0 +1,7 @@
+# Shared figure-styling configuration. Colors/labels are staged verbatim
+# from the manuscript authors' own plot-design settings file
+# (data/plot_design_settings.json), reused as-is rather than re-typed, so
+# the manuscript's color-per-magic convention cannot silently drift.
+design_settings_path: plot_design_settings.json  # relative to DATA_ROOT
+dpi: 300
+formats: ["png", "pdf"]

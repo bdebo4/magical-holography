@@ -1,0 +1,72 @@
+# SC8 hardware-analysis configuration.
+#
+# Measurement scheme: 27 shared post-recovery three-qubit tomography circuits
+# per (theta, magic) condition. Although their filenames use boundary-style
+# labels (bound_XXX .. bound_ZZZ), every one already includes the
+# recovery/decode step, so there is no separate three-circuit SC8 bulk
+# dataset: the boundary (3-qubit) entropy is reconstructed from the full
+# 27-setting tomography directly, and the bulk (1-qubit) entropy reuses 3 of
+# those same 27 settings as a marginal single-qubit estimator (see
+# code/src/holographic_codes/analysis/sc8.py). boundary_qubits/bulk_qubits
+# are the *local*
+# 3-qubit tomography-register indices [0,1,2] used inside the reconstructed
+# post-recovery density matrix (physical circuit indices boundary_ind=[5,0,6]
+# from SC8-C-C004/SC8-D-C043 are folded into the exporter's per-circuit
+# qubit ordering before tomography; the reconstruction always operates on the
+# 3-qubit register in that order, with qubit 0 = physical index 5 = the
+# bulk-position qubit reused for the marginal bulk estimator).
+name: sc8_jan2026_equal_depth
+experiment: sc8
+version: sc8_jan2026_equal_depth
+mode: hardware
+
+theta_codes: ["0000", "0196", "0393", "0589", "0785"]
+theta_values: [0.0, 0.19634954084936207, 0.39269908169872414, 0.5890486225480862, 0.7853981633974483]
+magic_codes: ["000", "010", "020"]
+magic_values: [0.0, 0.5, 1.0]
+
+measurement:
+  scheme: shared_post_recovery_equal_depth
+  settings_per_condition: 27
+  boundary_qubits: [0, 1, 2]
+  bulk_qubits: [0]
+  separate_bulk_circuits: false
+
+n_qubits: 8
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/SC8
+raw_count_root: hardware_counts/SC8
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 27
+expected_shots_per_setting:
+  "000": 2100
+  "010": 1500
+  "020": 1500
+
+bootstrap_repeats: 1000
+bootstrap_seed: 12345
+
+simulation_runs: null
+simulation_seed: null
+simulation_shots: null
+optimizer_artifacts:
+  - optimized_artifacts/circ_optimized_reco_singlecopy_halfmagic.pkl
+  - optimized_artifacts/circ_optimized_reco_singlecopy_withmagic.pkl
+noise_parameters:
+  error_syst_Rx_per_magic: 0.15
+  error_syst_Ry_per_magic: 0.25
+  error_syst_Rz_per_magic: 0.15
+  error_syst_ZZ_per_magic: 0.20
+  documented_deviation:
+    condition: "0393_020"
+    expected_shots: 1500
+    actual_shots: 1600
+    note: "Uniform 1600 shots/setting across all 27 settings; preserved verbatim as recorded rather than coerced to the nominal 1500."
+
+reference_summary: reference_summaries/SC8_entropy_summary.json
+reference_simulation: reference_simulations/SC8_noisy_sims_theta9_qstRuns15_K200_shotsM0-2100_M0p5-1500_M1-1500_boot100_2026-06-16.json
+
+quick_mode: false

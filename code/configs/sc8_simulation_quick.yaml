@@ -1,0 +1,60 @@
+# SC8 quick simulation configuration: proves the simulation pipeline runs
+# end-to-end, NOT a production reproduction. Output filenames must contain
+# "quick" and must never overwrite/masquerade as production references
+# (01_IMPLEMENTATION_SPEC.md section 7).
+name: sc8_quick
+experiment: sc8
+version: sc8_quick
+mode: simulation_quick
+
+theta_codes: ["0000", "0785"]
+theta_values: [0.0, 0.7853981633974483]
+magic_codes: ["000", "020"]
+magic_values: [0.0, 1.0]
+
+measurement:
+  scheme: shared_post_recovery_equal_depth
+  settings_per_condition: 27
+  boundary_qubits: [0, 1, 2]
+  bulk_qubits: [0]
+  separate_bulk_circuits: false
+
+n_qubits: 8
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/SC8
+raw_count_root: hardware_counts/SC8
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 27
+expected_shots_per_setting:
+  "000": 50
+  "020": 50
+
+bootstrap_repeats: 10
+bootstrap_seed: 12345
+
+simulation_runs: 2
+simulation_seed: 12345
+simulation_shots: null
+optimizer_artifacts:
+  - optimized_artifacts/circ_optimized_reco_singlecopy_withmagic.pkl
+noise_parameters:
+  qst_trajectory_batch_K: 5
+  shots_qst_by_magic: {"0.0": 50, "1.0": 50}
+  incl_rz_error: true
+  base_error_syst_Rx: 0.15
+  base_error_syst_Ry: 0.25
+  base_error_syst_Rz: 0.15
+  base_error_syst_ZZ: 0.20
+  error_rand_SQ: 0.02
+  error_rand_ZZ: 0.135
+  use_qst_count_bootstrap: true
+  qst_count_bootstrap_repeats: 10
+  qst_count_bootstrap_seed: 12345
+
+reference_summary: reference_summaries/SC8_entropy_summary.json
+reference_simulation: null  # quick mode never compares against production references
+
+quick_mode: true

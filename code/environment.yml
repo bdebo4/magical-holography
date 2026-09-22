@@ -1,0 +1,27 @@
+# Code Ocean conda environment. qiskit is pinned to 2.2.3 because the
+# executed QPY files staged under data/executed_circuits/ embed that exact
+# qiskit version in their QPY header (verified byte-for-byte: header bytes
+# after the "QISKIT" magic are \x10\x02\x02\x03 -> qpy format 16, qiskit
+# 2.2.3). transpile(optimization_level=3)'s 2-qubit-block synthesis is
+# heuristic and version-sensitive, which is why circuit regression in this
+# capsule checks measurement-probability equivalence rather than requiring
+# byte-identical gate sequences (see code/src/holographic_codes/circuits/
+# comparison.py).
+name: holographic-codes
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - qiskit==2.2.3
+      - qiskit-ionq==1.0.2
+      - qiskit-aer>=0.17
+      - cirq==1.6.1
+      - numpy>=2.0
+      - scipy>=1.14
+      - pandas>=2.2
+      - matplotlib>=3.9
+      - qutip>=5.0
+      - pyyaml>=6.0
+      - pytest>=8.0

@@ -1,0 +1,62 @@
+# WH10 full production simulation configuration. Parameters copied verbatim
+# from the "_meta" block of the staged production simulation JSON
+# (data/reference_simulations/WH10_constructed_9theta_mu000-013-027_K200_shots000-1250_013-1500_027-1250_runs14_boot80_combined_typical_count.json).
+name: wh10_full_combined_typical_count
+experiment: wh10
+version: wh10_full_combined_typical_count
+mode: simulation_full
+
+theta_codes: ["0000", "0098", "0196", "0295", "0393", "0491", "0589", "0687", "0785"]
+theta_values: [0.0, 0.09817477042468103, 0.19634954084936207, 0.2945243112740431, 0.39269908169872414, 0.4908738521234052, 0.5890486225480862, 0.6872233929727672, 0.7853981633974483]
+magic_codes: ["000", "013", "027"]
+magic_values: [0.0, 0.5, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk
+  settings_per_condition: 90
+  boundary_settings: 81
+  bulk_settings: 9
+  boundary_qubits: [3, 4, 8, 9]
+  bulk_qubits: [0, 5]
+  separate_bulk_circuits: true
+
+n_qubits: 10
+logical_qubits: [0, 5]
+
+executed_circuit_root: executed_circuits/WH10
+raw_count_root: hardware_counts/WH10
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 90
+expected_shots_per_setting:
+  "000": 1250
+  "013": 1500
+  "027": 1250
+
+bootstrap_repeats: 80
+bootstrap_seed: 12345
+
+simulation_runs: 14  # num_runs_qst
+simulation_seed: 24680  # COHERENT_RANDOM_SEED
+simulation_shots: null
+optimizer_artifacts: []
+noise_parameters:
+  qst_trajectory_batch_K: 200
+  shots_qst_by_magic: {"0.0": 1250, "0.5": 1500, "1.0": 1250}
+  error_rand_SQ: 0.02
+  error_rand_ZZ: 0.117
+  use_shared_coherent_errors: true
+  coherent_sigma_SQ: 0.0
+  coherent_sigma_ZZ: 0.0
+  COHERENT_RANDOM_SEED: 24680
+  FIT_RANDOM_SEED: 12345
+  use_qst_count_bootstrap: true
+  qst_count_bootstrap_repeats: 80
+  qst_count_bootstrap_seed: 12345
+  qst_uncertainty_mode: combined_typical_count
+
+reference_summary: reference_summaries/WH10_entropy_summary.json
+reference_simulation: reference_simulations/WH10_constructed_9theta_mu000-013-027_K200_shots000-1250_013-1500_027-1250_runs14_boot80_combined_typical_count.json
+
+quick_mode: false

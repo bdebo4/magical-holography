@@ -1,0 +1,69 @@
+# WH16 full production simulation configuration. Parameters copied verbatim
+# from the "_meta" block of the K50 staged production simulation JSON
+# (data/reference_simulations/WH16_constructed_..._K50_shots1000_runs5_boot10_combined_typical_count.json).
+# The K5 file (also staged) is a lower-trajectory-count companion run and is
+# validated against separately by tools/compare_reference_outputs.py.
+name: wh16_full_K50_optEnc_optReco
+experiment: wh16
+version: wh16_full_K50_optEnc_optReco
+mode: simulation_full
+
+theta_codes: ["0000", "0196", "0393", "0589", "0785"]
+theta_values: [0.0, 0.19634954084936207, 0.39269908169872414, 0.5890486225480862, 0.7853981633974483]
+magic_codes: ["000", "010"]
+magic_values: [0.0, 1.0]
+
+measurement:
+  scheme: separate_boundary_bulk_shared_filename_quirk
+  settings_per_condition: 162
+  boundary_settings: 81
+  bulk_settings: 81
+  boundary_qubits: [4, 12, 7, 15]
+  bulk_qubits: [1, 9, 5, 13]
+  separate_bulk_circuits: true
+
+n_qubits: 16
+logical_qubits: [0, 5, 8, 13]
+
+executed_circuit_root: executed_circuits/WH16
+raw_count_root: hardware_counts/WH16
+selected_circuits_manifest: manifests/selected_circuits.csv
+selected_jobs_manifest: manifests/selected_hardware_jobs.csv
+
+expected_circuit_count_per_condition: 162
+expected_shots_per_setting:
+  "000": 1000
+  "010": 1000
+
+bootstrap_repeats: 10
+bootstrap_seed: 12345
+
+simulation_runs: 5
+simulation_seed: 12345
+simulation_shots: 1000
+optimizer_artifacts:
+  - optimized_artifacts/x_best_010.npy
+  - optimized_artifacts/circ_opt_reco_opt_magic_params
+noise_parameters:
+  qst_trajectory_batch_K: 50
+  use_optimized_encoding: true
+  optimized_encoding_file: optimized_artifacts/x_best_010.npy
+  use_optimized_recovery: true
+  optimized_recovery_file: optimized_artifacts/circ_opt_reco_opt_magic_params
+  boundary_blue1: [1, 2, 3]
+  boundary_blue2: [9, 10, 11]
+  boundary_red1: [5, 0, 6]
+  boundary_red2: [13, 8, 14]
+  N_RX: 110
+  N_RY: 110
+  N_RZ: 22
+  N_XX: 36
+  incl_rz_error: true
+  qst_uncertainty_mode: combined_typical_count
+  qst_count_bootstrap_repeats: 10
+  qst_count_bootstrap_seed: 12345
+
+reference_summary: reference_summaries/WH16_entropy_summary.json
+reference_simulation: reference_simulations/WH16_constructed_coherr_000_000_randerr_000_125_5theta_mu000-010_optEnc_optReco_K50_shots1000_runs5_boot10_combined_typical_count.json
+
+quick_mode: false
